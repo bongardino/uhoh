@@ -78,14 +78,21 @@ exit unless confirmation == "button returned:OK"
 
 # initialize and fill a hash of AP MAC addresses and names
 # manually produced by exporting from the Meraki admin Wireless pages
-ap = Hash.new
 ap =  {"00:00:00"=>"{{ ACCESS POINT - LOCATION - BUILDING }}",
        "00:00:00"=>"{{ ACCESS POINT - LOCATION - BUILDING }}",
        "00:00:00"=>"{{ ACCESS POINT - LOCATION - BUILDING }}"}
 
 # Find the MAC address of the current access point, set the name
+# Find the MAC address of the current access point, set the name
+airport = {}
 airport_info = `/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport -I`
-bssid = `/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport -I | awk '/BSSID:/ {print $2}'`.slice(-9..16).strip
+
+airport_info.split("\n").each do |s|
+  k, v = s.split(": ")
+  airport[k.strip] = v.strip
+end
+
+bssid = airport["BSSID"].slice(-8..16).strip
 
 current_ap = "not found"
 ap.each do |mac_address, room|
