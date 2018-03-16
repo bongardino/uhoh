@@ -17,7 +17,7 @@ Choose Run Shell Script
 Shell = usr/bin/ruby
 Pass Input = to stdin
 
-![automator](img)
+![automator](https://github.com/bongardino/uhoh/blob/master/Screenshot%202018-03-08%2023.17.01.png)
 
 ## TODO
 replace grep and awk and print with something more ruby-esq
